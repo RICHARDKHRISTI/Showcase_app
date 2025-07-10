@@ -1,38 +1,300 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+  /* Superhero color palette */
+  --hero-dark: #000000;
+  --hero-darker: #252525;
+  --hero-accent: #f5f5f5; /* Classic comic red */
+  --hero-gold: #9f9f9f;
+  --hero-blue: #006507;
+  --hero-text: #dbecff;
+  --hero-text-secondary: #b2f2a1;
+  
+  /* Superhero typography */
+  --font-display: 'Bebas Neue', cursive; /* Bold comic-style font */
+  --font-body: 'Montserrat', sans-serif; /* Strong modern font */
+  
+  /* Heroic effects */
+  --glow-red: 0 0 8px rgba(230, 36, 41, 0.6);
+  --glow-blue: 0 0 8px rgba(0, 133, 202, 0.6);
+}
+
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--hero-dark);
+  color: var(--hero-text);
+  line-height: 1.6;
+}
+
+.app {
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, var(--hero-darker), var(--hero-dark));
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  letter-spacing: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--hero-accent) 0%,
+    var(--hero-gold) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--hero-accent),
+    var(--hero-blue),
+    transparent
+  );
+}
+
+/* Heroic search bar */
+.search {
+  width: 71%;
+  margin: 4rem 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-radius: 50px;
+  background: rgba(26, 29, 36, 0.8);
+  border: 2px solid var(--hero-accent);
+  box-shadow: var(--glow-red);
+  transition: all 0.3s ease;
+}
+
+.search:focus-within {
+  border-color: var(--hero-blue);
+  box-shadow: var(--glow-blue);
+}
+
+.search input {
+  flex: 1;
+  border: none;
+  font-size: 1.3rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding-right: 1rem;
+  outline: none;
+  color: var(--hero-text);
+  background: transparent;
+  letter-spacing: 0.5px;
+}
+
+.search input::placeholder {
+  color: var(--hero-text-secondary);
+  font-weight: 400;
+}
+
+.search button {
+  background: var(--hero-accent);
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.search button:hover {
+  background: var(--hero-blue);
+  transform: scale(1.05);
+}
+
+.search button img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+/* Comic-style movie cards */
+.container {
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.movie {
+  width: 320px;
+  height: 480px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--hero-accent);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  background: var(--hero-darker);
+}
+
+.movie:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--hero-blue);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.7), var(--glow-blue);
+  z-index: 10;
+}
+
+.movie div:nth-of-type(1) {
+  position: absolute;
+  padding: 20px;
+  width: 100%;
+  opacity: 0;
+  top: 0;
+  color: var(--hero-gold);
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+.movie div:nth-of-type(2) {
+  width: 100%;
+  height: 100%;
+}
+
+.movie div:nth-of-type(2) img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.movie div:nth-of-type(3) {
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(12, 14, 18, 0.9) 0%,
+    transparent 100%
+  );
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.movie:hover div:nth-of-type(3) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.movie div:nth-of-type(3) span {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--hero-gold);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.movie div:nth-of-type(3) h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.movie:hover div:nth-of-type(2) img {
+  transform: scale(1.05);
+  opacity: 0.7;
+}
+
+.movie:hover div:nth-of-type(1) {
+  opacity: 1;
+}
+
+/* Empty state - heroic */
+.empty {
+  width: 100%;
+  margin-top: 3rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.empty h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--hero-accent);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.empty p {
+  font-family: var(--font-body);
+  color: var(--hero-text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Responsive heroic adjustments */
+@media screen and (max-width: 768px) {
+  .app {
+    padding: 3rem 2rem;
+  }
+  
+  h1 {
+    font-size: 3rem;
+  }
+  
+  .search {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+  }
+  
+  .search input {
+    font-size: 1.1rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media screen and (max-width: 480px) {
+  .app {
+    padding: 2rem 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .movie {
+    width: 100%;
+    height: 400px;
   }
 }
